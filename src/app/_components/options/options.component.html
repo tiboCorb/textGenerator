@@ -1,0 +1,61 @@
+<mat-drawer-container autosize class='main-container'>
+  <mat-drawer #drawer opened class="split left" mode="side">
+    <div>
+      <mat-list class="half">
+        <mat-card class="header-card">
+          Points positifs
+          <button class='add-button'  matTooltip="comming soon" mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-card>
+        <ng-container *ngFor="let goodItem of goodItems">
+          <mat-list-item>
+            <mat-checkbox color='primary' (change)="changeTextList($event,goodItem)">{{goodItem.name}}</mat-checkbox>
+          </mat-list-item>
+        </ng-container>
+      </mat-list>
+      <mat-list class="half">
+        <mat-card class="header-card">
+          Points négatif
+          <button class='add-button'  matTooltip="comming soon" mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-card>
+        <ng-container *ngFor="let badItem of badItems">
+          <mat-list-item>
+            <mat-checkbox color='primary' (change)="changeTextList($event,badItem)">{{badItem.name}}</mat-checkbox>
+          </mat-list-item>
+        </ng-container>
+      </mat-list>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="right">
+    <mat-list cdkDropList class="list" (cdkDropListDropped)="drop($event)">
+      <mat-card class="box" matRipple *ngFor="let point of texts, let i = index" cdkDrag>
+        <div (click)='edit(point)' *ngIf='isnotEditing[i] ,else input'>{{point.text}}</div>
+        <ng-template #input>
+          <mat-form-field>
+            <input (blur)='endEdit(point)' matInput value="{{point.text}}">
+          </mat-form-field>
+        </ng-template>
+        <div class='moveIcon' [style.background]="point.isgood ? '#43A047' : '#E53935'">
+          <mat-icon class='moveIcon' cdkDragHandle>swap_vert</mat-icon>
+        </div>
+      </mat-card>
+    </mat-list>
+  </mat-drawer-content>
+</mat-drawer-container>
+<div class='copy'>
+  <button mat-fab color="primary" (click)='copyMessage()' matTooltip="Copier dans le presse papier">
+    <mat-icon>file_copy</mat-icon>
+  </button>
+  <button class='floating-button' mat-fab color="primary" (click)='import()' matTooltip="comming soon">
+    <mat-icon>cloud_upload</mat-icon>
+  </button>
+  <button class='floating-button' mat-fab color="primary" (click)='save()' matTooltip="comming soon">
+    <mat-icon>save</mat-icon>
+  </button>
+  <button class="floating-button" mat-fab color="primary" (click)="drawer.toggle()" matTooltip="Fermer le menu">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
