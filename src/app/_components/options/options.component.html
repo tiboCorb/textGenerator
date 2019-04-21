@@ -1,61 +1,99 @@
-<mat-drawer-container autosize class='main-container'>
+<mat-drawer-container *ngIf="pageIsReady" autosize class='main-container'>
   <mat-drawer #drawer opened class="split left" mode="side">
     <div>
-      <mat-list class="half">
+      <mat-list>
         <mat-card class="header-card">
           Points positifs
-          <button class='add-button'  matTooltip="comming soon" mat-icon-button>
+          <button (click)='addgood()' class='add-button' matTooltip="comming soon" mat-icon-button>
             <mat-icon>add</mat-icon>
           </button>
         </mat-card>
-        <ng-container *ngFor="let goodItem of goodItems">
-          <mat-list-item>
-            <mat-checkbox color='primary' (change)="changeTextList($event,goodItem)">{{goodItem.name}}</mat-checkbox>
-          </mat-list-item>
-        </ng-container>
+        <div *ngIf="isAddingGood">
+          <app-point-form [isGood]="true" (submitForm)="submitAddPoint($event)"></app-point-form>
+        </div>
+        <mat-grid-list [cols]="nbCol" rowHeight="60px">
+          <mat-grid-tile *ngFor="let goodItem of goodItems">
+            <mat-list-item>
+              <mat-checkbox class="space-checkbox" (change)="changeTextList($event,goodItem)">{{goodItem.name}}
+              </mat-checkbox>
+            </mat-list-item>
+          </mat-grid-tile>
+        </mat-grid-list>
       </mat-list>
-      <mat-list class="half">
+      <mat-list>
         <mat-card class="header-card">
           Points négatif
-          <button class='add-button'  matTooltip="comming soon" mat-icon-button>
+          <button (click)='addBad()' class='add-button' matTooltip="nouveau" mat-icon-button>
             <mat-icon>add</mat-icon>
           </button>
         </mat-card>
-        <ng-container *ngFor="let badItem of badItems">
-          <mat-list-item>
-            <mat-checkbox color='primary' (change)="changeTextList($event,badItem)">{{badItem.name}}</mat-checkbox>
-          </mat-list-item>
-        </ng-container>
+        <div *ngIf="isAddingbad">
+          <app-point-form [isGood]="false" (submitForm)="submitAddPoint($event)"></app-point-form>
+        </div>
+        <mat-grid-list [cols]="nbCol" rowHeight="60px">
+          <mat-grid-tile *ngFor="let badItem of badItems">
+            <mat-list-item>
+              <mat-checkbox class="space-checkbox" (change)="changeTextList($event,badItem)">{{badItem.name}}
+              </mat-checkbox>
+            </mat-list-item>
+          </mat-grid-tile>
+        </mat-grid-list>
       </mat-list>
     </div>
   </mat-drawer>
   <mat-drawer-content class="right">
-    <mat-list cdkDropList class="list" (cdkDropListDropped)="drop($event)">
-      <mat-card class="box" matRipple *ngFor="let point of texts, let i = index" cdkDrag>
-        <div (click)='edit(point)' *ngIf='isnotEditing[i] ,else input'>{{point.text}}</div>
-        <ng-template #input>
-          <mat-form-field>
-            <input (blur)='endEdit(point)' matInput value="{{point.text}}">
+    <div class='list'>
+      <mat-card class="box firstBox" matRipple (click)='editBorder(start.name)'>
+        <div *ngIf='isnotEditingBorder[0] ,else inputStart'>{{start.text}}</div>
+        <ng-template #inputStart>
+          <mat-form-field class='fullInput'>
+            <textarea autoFocus (blur)='endEditBorder(start.name)' matInput [(ngModel)]="start.text"></textarea>
           </mat-form-field>
         </ng-template>
-        <div class='moveIcon' [style.background]="point.isgood ? '#43A047' : '#E53935'">
-          <mat-icon class='moveIcon' cdkDragHandle>swap_vert</mat-icon>
+        <div class='moveIcon'>
+          <mat-icon class='moveIcon' color='primary'>pan_tool</mat-icon>
         </div>
       </mat-card>
-    </mat-list>
+      <mat-list cdkDropList (cdkDropListDropped)="drop($event)">
+        <mat-card (click)='edit(point)' class="box" matRipple *ngFor="let point of texts, let i = index" cdkDrag>
+          <div class='moveIcon' [style.background]="point.isgood ? '#736b9a' : '#fe5e78'">
+            <mat-icon cdkDragHandle>swap_vert</mat-icon>
+          </div>
+          <div class='deleteIcon'>
+            <mat-icon >delete</mat-icon>
+          </div>
+          <div *ngIf='isnotEditing[i] ,else input'>{{point.text}}</div>
+          <ng-template #input>
+            <mat-form-field class='fullInput' floatLabel="always">
+              <textarea matInput autoFocus (blur)='endEdit(point)'  [(ngModel)]="point.text"></textarea>
+            </mat-form-field>
+          </ng-template>
+
+        </mat-card>
+      </mat-list>
+      <mat-card class="box" matRipple (click)='editBorder(end.name)'>
+        <div *ngIf="isnotEditingBorder[1] ,else inputEnd">{{end.text}}</div>
+        <ng-template #inputEnd>
+          <mat-form-field class='fullInput'>
+            <textarea autoFocus (blur)='endEditBorder(end.name)' matInput [(ngModel)]="end.text"></textarea>
+          </mat-form-field>
+        </ng-template>
+        <div class='moveIcon'>
+          <mat-icon class='moveIcon' color='primary'>pan_tool</mat-icon>
+        </div>
+      </mat-card>
+    </div>
+    <div class='rowButton'>
+      <button mat-fab color="primary" (click)='copyMessage()' matTooltip="Copier dans le presse papier">
+        <mat-icon>file_copy</mat-icon>
+      </button>
+      <button class='floating-button' mat-fab color="primary" (click)='swap()' matTooltip="changer le json">
+        <mat-icon>swap_horiz</mat-icon>
+      </button>
+      <button class="floating-button" mat-fab color="primary" (click)="drawer.toggle()" matTooltip="Fermer le menu">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </div>
   </mat-drawer-content>
 </mat-drawer-container>
-<div class='copy'>
-  <button mat-fab color="primary" (click)='copyMessage()' matTooltip="Copier dans le presse papier">
-    <mat-icon>file_copy</mat-icon>
-  </button>
-  <button class='floating-button' mat-fab color="primary" (click)='import()' matTooltip="comming soon">
-    <mat-icon>cloud_upload</mat-icon>
-  </button>
-  <button class='floating-button' mat-fab color="primary" (click)='save()' matTooltip="comming soon">
-    <mat-icon>save</mat-icon>
-  </button>
-  <button class="floating-button" mat-fab color="primary" (click)="drawer.toggle()" matTooltip="Fermer le menu">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
-</div>
+<app-option-chooser *ngIf='!pageIsReady' (jsonIs)="setJson($event)"></app-option-chooser>

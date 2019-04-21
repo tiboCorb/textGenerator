@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import {MatSidenavContent} from '@angular/material'
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Point } from '../../model';
 
 import * as _ from 'lodash';
+
 
 
 @Component({
@@ -23,24 +23,43 @@ export class OptionsComponent implements OnInit {
   public texts: Array<Point>;
   public pageIsReady: boolean;
   public isnotEditing: Array<boolean>;
+  public isnotEditingBorder: Array<boolean>;
+  public end: Point;
+  public start: Point;
+  public nbCol: number;
+  public isAddingGood: boolean;
+  public isAddingbad: boolean;
+
+
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {
+    this.isAddingGood = false;
+    this.isAddingbad = false;
     this.pageIsReady = false;
     this.goodItems = [];
     this.badItems = [];
     this.texts = [];
     this.isnotEditing = [];
+    this.isnotEditingBorder = [true, true];
   }
 
   ngOnInit() {
-    this.getJSON().subscribe(res => {
-      this.intTab(res.positive, res.negative);
-      this.pageIsReady = true;
-    });
+
   }
 
-  public getJSON(): Observable<any> {
-    return this.http.get('../../assets/options.json');
+  public getJSON(url: string): Observable<any> {
+    return this.http.get(url);
+  }
+
+  private resetPage() {
+    this.isAddingGood = false;
+    this.isAddingbad = false;
+    this.pageIsReady = false;
+    this.goodItems = [];
+    this.badItems = [];
+    this.texts = [];
+    this.isnotEditing = [];
+    this.isnotEditingBorder = [true, true];
   }
 
   intTab(objArrayGood: Array<any>, objArrayBad: Array<any>) {
@@ -78,9 +97,17 @@ export class OptionsComponent implements OnInit {
     this.isnotEditing[index] = false;
   }
 
-  public endEdit(point: Point) {
+  public editBorder(name: string) {
+    this.isnotEditingBorder[name === 'end' ? 1 : 0] = false;
+  }
+
+  public endEdit(point: Point, event: any) {
     const index = _.findIndex(this.texts, el => el === point);
     this.isnotEditing[index] = true;
+  }
+
+  public endEditBorder(name: string) {
+    this.isnotEditingBorder[name === 'end' ? 1 : 0] = true;
   }
 
   public copyMessage() {
@@ -89,9 +116,11 @@ export class OptionsComponent implements OnInit {
     selBox.style.left = '0';
     selBox.style.top = '0';
     selBox.style.opacity = '0';
+    selBox.value += this.start.text + '\n\n';
     this.texts.forEach(el => {
       selBox.value += el.text + '\n\n';
     });
+    selBox.value += this.end.text + '\n\n';
     document.body.appendChild(selBox);
     selBox.focus();
     selBox.select();
@@ -100,12 +129,46 @@ export class OptionsComponent implements OnInit {
     this.showMessage('Copier dans le presse papier');
   }
 
+
   public showMessage(message: string) {
     this.snackBar.open(message, '', {
       duration: 2000,
     });
   }
 
+  public addgood() {
+    this.isAddingGood = true;
+  }
+
+  public addBad() {
+    this.isAddingbad = true;
+  }
+
+  public submitAddPoint(event: any) {
+    if (event) {
+
+      return;
+    }
+    this.isAddingGood = false;
+    this.isAddingbad = false;
+  }
+
+  public swap() {
+    this.pageIsReady = false;
+  }
+
+  public setJson(event: any) {
+    this.resetPage();
+    this.getJSON(event).subscribe(res => {
+      this.start = { name: 'start', id: null, text: res.start.text, isgood: false };
+      this.end = { name: 'end', id: null, text: res.end.text, isgood: false };
+      this.intTab(res.positive, res.negative);
+      const nbColGood = Math.floor(res.positive.length / 5) + 1;
+      const nbColBad = Math.floor(res.negative.length / 5) + 1;
+      this.nbCol = (nbColGood >= nbColBad) ? nbColGood : nbColBad;
+      this.pageIsReady = true;
+    });
+  }
 }
 
 

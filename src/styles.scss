@@ -1,1 +1,6 @@
 @import './theme.scss';
+
+.mat-grid-tile .mat-figure {
+    justify-content: flex-start !important ;
+  }
+  

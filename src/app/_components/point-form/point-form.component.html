@@ -1,0 +1,18 @@
+<form [formGroup]="form">
+  <mat-grid-list cols="1" rowHeight="80px">
+    <mat-grid-tile>
+      <mat-form-field>
+        <input autofocus matInput placeholder="Nom du point" formControlName="name">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="text">
+      <mat-form-field appearance="outline">
+        <textarea matInput  formControlName="text"></textarea>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile >
+        <button  mat-stroked-button color="primary" (click)="submitAdd()">Ajouter</button>
+      <button class="cancelButton" mat-raised-button color="primary" (click)="cancelAdd()" >Annuler</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

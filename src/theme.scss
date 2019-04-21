@@ -7,17 +7,85 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+
+$my-primary: (
+  50: #ff217c,
+  100: #ff217c,
+  200: #ff217c,
+  300: #ff217c,
+  400: #ff217c,
+  500: #ff217c,
+  600: #ff217c,
+  700: #ff217c,
+  800: #ff217c,
+  900: #ff217c,
+  A100: #ff217c,
+  A200: #ff217c,
+  A400: #ff217c,
+  A700: #ff217c,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+$my-accent: (
+  50: #24e9d7,
+  100: #24e9d7,
+  200: #24e9d7,
+  300: #24e9d7,
+  400: #24e9d7,
+  500: #24e9d7,
+  600: hsl(175, 82%, 53%),
+  700: #24e9d7,
+  800: #24e9d7,
+  900: #24e9d7,
+  A100: #24e9d7,
+  A200: #24e9d7,
+  A400: #24e9d7,
+  A700: #24e9d7,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white,
+  )
+);
+
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent:  mat-palette($mat-deep-orange, A200, A100, A400);
-$dark-warn:    mat-palette($mat-deep-orange);
-$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+$light-primary:  mat-palette($my-primary, 100 ,200 ,300);
+$light-accent:  mat-palette($my-accent, 100, 200, 300);
+$light-warn:    mat-palette($mat-deep-orange);
+$light-theme:   mat-light-theme($light-primary, $light-accent, $light-warn);
 
 
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-  @include angular-material-theme($dark-theme);
+  @include angular-material-theme($light-theme);
