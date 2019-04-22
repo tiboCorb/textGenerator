@@ -42,6 +42,9 @@
     </div>
   </mat-drawer>
   <mat-drawer-content class="right">
+      <div class="box_astronaut">
+          <img class="object_astronaut" src="http://salehriaz.com/404Page/img/astronaut.svg" width="140px">
+      </div>
     <div class='list'>
       <mat-card class="box firstBox" matRipple (click)='editBorder(start.name)'>
         <div *ngIf='isnotEditingBorder[0] ,else inputStart'>{{start.text}}</div>
