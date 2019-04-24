@@ -1,19 +1,20 @@
 <div  class='fullOverlay'></div>
 
 <div  class="cardContainer">
-  <div matRipple (click)="setJson(0)" class="card" [ngClass]='{"mat-elevation-z4": hoverTab[0]}'>
+  <div matRipple (click)="setJson(0)" class="card" >
     <mat-icon (mouseover)="hoverTab[0] = true" (mouseout)="hoverTab[0] = false"  class="icon"
       [ngClass]='{"iconHover": hoverTab[0]}'>wb_incandescent</mat-icon>
     <span class='text'>Test interne</span>
   </div>
-  <div matRipple (click)="setJson(1)" class="card"  [ngClass]='{"mat-elevation-z4": hoverTab[1]}'>
+  <div matRipple (click)="setJson(1)" class="card"  >
     <mat-icon (mouseover)="hoverTab[1] = true" (mouseout)="hoverTab[1] = false"  class="icon"
       [ngClass]='{"iconHover": hoverTab[1]}'>code</mat-icon>
     <span class='text'>Audit de code</span>
   </div>
-  <div matRipple  (click)="setJson(2)" class="card"  [ngClass]='{ "mat-elevation-z4": hoverTab[2]}'>
+  <div matRipple  (click)="setJson(2)" class="card"  >
     <mat-icon (mouseover)="hoverTab[2] = true" (mouseout)="hoverTab[2] = false" class="icon"
       [ngClass]='{"iconHover": hoverTab[2]}'>wb_sunny</mat-icon>
     <span class='text'>Test Externe</span>
   </div>
 </div>
+
