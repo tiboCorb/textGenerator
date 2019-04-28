@@ -4,7 +4,7 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background-image:url(../../../assets/planet-recenter.png);
+  background: transparent;
   z-index: 10;
 }
 
@@ -50,6 +50,36 @@
   right: 0;
   font-size: 24px;
   font-weight: bold;
+  animation: fadeUpIn 3s;
+  -webkit-animation: fadeUpIn 3s; /* Safari and Chrome */
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 1;
+    transform: scale(.3);
+  } 
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  } 
+
+  70% {
+    opacity: 1;
+    transform: scale(.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes fadeUpIn /* Safari and Chrome */
+{
+  from { opacity:0;  }
+  to { opacity:1; }
 }
 
 

@@ -9,14 +9,17 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TextFieldModule } from '@angular/cdk/text-field'; 
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select'; 
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { JsonService } from './_services/json.service';
 
 
 import { MatRippleModule } from '@angular/material/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { appRouting } from './app-routing';
 import { AppComponent } from './app.component';
 import { OptionsComponent } from './_components/options/options.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -27,6 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AutofocusDirective } from './_directives/autofocus.directive';
 import { PointFormComponent } from './_components/point-form/point-form.component';
 import { OptionChooserComponent } from './_components/option-chooser/option-chooser.component';
+import { TextLinkComponent } from './_components/text-link/text-link.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { OptionChooserComponent } from './_components/option-chooser/option-choo
     OptionsComponent,
     AutofocusDirective,
     PointFormComponent,
-    OptionChooserComponent
+    OptionChooserComponent,
+    TextLinkComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -46,18 +51,20 @@ import { OptionChooserComponent } from './_components/option-chooser/option-choo
     MatSidenavModule,
     MatButtonModule,
     MatListModule,
+    TextFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatDividerModule,
     MatCardModule,
     MatCheckboxModule,
-    AppRoutingModule,
+    appRouting,
     DragDropModule,
     MatIconModule,
     MatSnackBarModule,
     MatTooltipModule,
     MatRippleModule
   ],
-  providers: [],
+  providers: [JsonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

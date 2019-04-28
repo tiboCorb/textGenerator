@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, NavigationStart} from '@angular/router';
+
 
 
 @Component({
@@ -8,5 +10,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  title = 'textGenerator';
+  public isOptionPage: boolean;
+
+  constructor(private router: Router) {
+    this.isOptionPage = false;
+    this.router.events.subscribe(ev => {
+      if (ev instanceof NavigationStart) {
+        this.isOptionPage = !this.isOptionPage;
+      }
+
+    });
+  }
+
 }

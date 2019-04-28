@@ -1,6 +1,32 @@
-@import './theme.scss';
+@import "./theme.scss";
 
 .mat-grid-tile .mat-figure {
-    justify-content: flex-start !important ;
-  }
-  
+  justify-content: flex-start !important ;
+}
+
+.mat-drawer-container {
+  background: transparent !important;
+}
+.mat-select-arrow {
+  border-top: 5px solid white !important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white !important;
+}
+.mat-select-value {
+  color: white;
+  font-weight: bold;
+}
+
+.mat-form-field-infix{
+  min-width: 180px !important;
+}
+
+.mat-select-value {
+ 
+  width: auto;
+}  
+
+body {
+  overflow: hidden;
+}

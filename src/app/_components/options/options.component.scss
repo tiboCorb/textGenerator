@@ -4,6 +4,7 @@
   bottom: 0px;
   right: 0px;
   left: 0px;
+  z-index: 10;
 }
 
 .fullInput {
@@ -13,8 +14,9 @@
 .box {
   color: white;
   font-weight: bold;
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
@@ -24,7 +26,7 @@
   padding-left: 120px;
   z-index: 1;
   widows: 100%;
-  position: relative;
+  opacity: 0.9;
 }
 .firstBox {
   margin: 10px 10px -8px 10px;
@@ -81,6 +83,7 @@
   background: #483c6c;
   display: inline-flex;
   padding: 20px;
+  opacity: 0.9;
 }
 /* Control the right side */
 .right {
@@ -89,7 +92,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   padding: 20px;
-  background-image: url(../../../assets/planets2.png);
+  background: transparent;
 }
 
 .header-card {
@@ -122,12 +125,13 @@
   overflow: visible;
 }
 
-
-.object_astronaut{
+.object_astronaut {
   animation: rotate-astronaut 200s infinite linear both alternate;
 }
-
-.box_astronaut{
+.textList {
+  margin-top: 15px;
+}
+.box_astronaut {
   z-index: 1 !important;
   position: absolute;
   top: 60%;
@@ -135,23 +139,45 @@
   will-change: transform;
   animation: move-astronaut 50s infinite linear both alternate;
 }
+.text {
+  margin: 0px 20px;
+  flex: 1;
+}
+.icon {
+ 
+  height: 100%;
+  transform: translateY(30%);
+}
 
 @-moz-keyframes move-astronaut {
-  100% { -moz-transform: translate(-160px, -160px);}
+  100% {
+    -moz-transform: translate(-160px, -160px);
+  }
 }
 @-webkit-keyframes move-astronaut {
-  100% { -webkit-transform: translate(-160px, -160px);}
+  100% {
+    -webkit-transform: translate(-160px, -160px);
+  }
 }
-@keyframes move-astronaut{
-  100% { -webkit-transform: translate(-160px, -160px); transform:translate(-160px, -160px); }
+@keyframes move-astronaut {
+  100% {
+    -webkit-transform: translate(-160px, -160px);
+    transform: translate(-160px, -160px);
+  }
 }
 @-moz-keyframes rotate-astronaut {
-  100% { -moz-transform: rotate(-720deg);}
+  100% {
+    -moz-transform: rotate(-720deg);
+  }
 }
 @-webkit-keyframes rotate-astronaut {
-  100% { -webkit-transform: rotate(-720deg);}
+  100% {
+    -webkit-transform: rotate(-720deg);
+  }
 }
-@keyframes rotate-astronaut{
-  100% { -webkit-transform: rotate(-720deg); transform:rotate(-720deg); }
+@keyframes rotate-astronaut {
+  100% {
+    -webkit-transform: rotate(-720deg);
+    transform: rotate(-720deg);
+  }
 }
-

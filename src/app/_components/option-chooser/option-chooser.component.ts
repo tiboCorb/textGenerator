@@ -1,4 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { JsonService } from '../../_services/json.service';
 
 import * as _ from 'lodash';
 
@@ -10,19 +12,17 @@ import * as _ from 'lodash';
 })
 export class OptionChooserComponent {
 
-  @Output() jsonIs: EventEmitter<string>;
-
   public hoverTab: Array<boolean>;
   public linkTab: Array<string>;
 
-  constructor() {
-    this.jsonIs = new EventEmitter();
+  constructor(private jsonS: JsonService, private router: Router) {
     this.hoverTab = [false, false, false];
     this.linkTab = ['../../assets/testINT.json', '../../assets/testAudit.json', '../../assets/testEXT.json'];
   }
 
   public setJson(cellNumber: number) {
-    this.jsonIs.emit(this.linkTab[cellNumber]);
+    this.jsonS.setJSON(this.linkTab[cellNumber]);
+    this.router.navigate(['/text_creator']);
   }
 
 }

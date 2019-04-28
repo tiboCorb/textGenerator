@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatSnackBar } from '@angular/material';
+import { JsonService } from '../../_services/json.service';
+import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { Point } from '../../model';
 
 import * as _ from 'lodash';
@@ -14,9 +16,7 @@ import * as _ from 'lodash';
   templateUrl: './options.component.html',
   styleUrls: ['./options.component.scss']
 })
-export class OptionsComponent implements OnInit {
-
-  @Input() title: string;
+export class OptionsComponent implements OnInit, OnDestroy {
 
   public goodItems: Array<Point>;
   public badItems: Array<Point>;
@@ -29,10 +29,11 @@ export class OptionsComponent implements OnInit {
   public nbCol: number;
   public isAddingGood: boolean;
   public isAddingbad: boolean;
+  private subscription: Subscription;
 
 
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private jsonS: JsonService, private router: Router) {
     this.isAddingGood = false;
     this.isAddingbad = false;
     this.pageIsReady = false;
@@ -44,7 +45,17 @@ export class OptionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.subscription = this.jsonS.getJSON().subscribe(url => {
+      this.initPage(url);
+    });
+  }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  public textLinkValueChange(value: string, index: number) {
+    this.texts[index].textLink = value;
   }
 
   public getJSON(url: string): Observable<any> {
@@ -118,6 +129,7 @@ export class OptionsComponent implements OnInit {
     selBox.style.opacity = '0';
     selBox.value += this.start.text + '\n\n';
     this.texts.forEach(el => {
+      el.textLink ? selBox.value += el.textLink + ' ' : selBox.value += '';
       selBox.value += el.text + '\n\n';
     });
     selBox.value += this.end.text + '\n\n';
@@ -157,9 +169,12 @@ export class OptionsComponent implements OnInit {
     this.pageIsReady = false;
   }
 
-  public setJson(event: any) {
+  public initPage(url: string) {
+    if (url === '') {
+      this.router.navigate(['json_chooser']);
+    }
     this.resetPage();
-    this.getJSON(event).subscribe(res => {
+    this.getJSON(url).subscribe(res => {
       this.start = { name: 'start', id: null, text: res.start.text, isgood: false };
       this.end = { name: 'end', id: null, text: res.end.text, isgood: false };
       this.intTab(res.positive, res.negative);

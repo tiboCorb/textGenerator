@@ -2,5 +2,6 @@ export interface Point {
     name: string;
     id?: number;
     text: string;
-    isgood : boolean;
+    isgood: boolean;
+    textLink ?: string;
 }
