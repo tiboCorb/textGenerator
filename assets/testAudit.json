@@ -1,0 +1,54 @@
+{
+    "end": {
+        "text": "ça finit comme ça"
+    },
+    "start" : {
+        "text": "ça commence comme ça "
+    },
+    "positive": [
+        {
+            "sqli": {
+                "id": "1",
+                "text": "on a pas trouver de sqli bro"
+            }
+        },
+        {
+            "xss": {
+                "id": "2",
+                "text": "on a pas trouver de xss bro"
+            }
+        },
+        {
+            "bannane": {
+                "id": "3",
+                "text": "on a pas trouver de bannane"
+            }
+        },
+        {
+            "poireau": {
+                "id": "4",
+                "text": "on a pas trouver de poireau bro"
+            }
+        },
+        {
+            "poile": {
+                "id": "1",
+                "text": "on a pas trouver de poile bro"
+            }
+        }
+    ],
+    "negative": [
+        {
+            "sqli": {
+                "id": "1",
+                "text": "je suis une super sqli"
+            }
+        },
+        {
+            "xss": {
+                "id": "2",
+                "text": "je suis une super xss"
+            }
+        }
+    ]
+}
