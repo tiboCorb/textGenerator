@@ -9,11 +9,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TextFieldModule } from '@angular/cdk/text-field'; 
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
-import { MatSelectModule } from '@angular/material/select'; 
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
 import { JsonService } from './_services/json.service';
 
 
@@ -31,6 +32,8 @@ import { AutofocusDirective } from './_directives/autofocus.directive';
 import { PointFormComponent } from './_components/point-form/point-form.component';
 import { OptionChooserComponent } from './_components/option-chooser/option-chooser.component';
 import { TextLinkComponent } from './_components/text-link/text-link.component';
+import { LoginComponent } from './_components/login/login.component';
+import { ConnectionService } from './_services/connection.service';
 
 @NgModule({
   declarations: [
@@ -39,9 +42,11 @@ import { TextLinkComponent } from './_components/text-link/text-link.component';
     AutofocusDirective,
     PointFormComponent,
     OptionChooserComponent,
-    TextLinkComponent
+    TextLinkComponent,
+    LoginComponent
   ],
   imports: [
+    MatDialogModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
@@ -64,7 +69,11 @@ import { TextLinkComponent } from './_components/text-link/text-link.component';
     MatTooltipModule,
     MatRippleModule
   ],
-  providers: [JsonService],
+  entryComponents: [
+    LoginComponent
+  ],
+  providers: [JsonService,
+    ConnectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

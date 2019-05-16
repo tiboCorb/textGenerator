@@ -1,5 +1,5 @@
 
 
 <img src='../assets/Space-Desktop.jpg' [ngClass]="{'optionChooserPosition':!isOptionPage, 'optionPosition': isOptionPage }">
-<router-outlet></router-outlet>
+<router-outlet *ngIf='tokenReady'></router-outlet>
 

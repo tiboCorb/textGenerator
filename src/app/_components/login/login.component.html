@@ -1,0 +1,16 @@
+<mat-dialog-content [formGroup]='form'>
+ 
+      <mat-form-field class="input" appearance="outline">
+        <mat-label>username</mat-label>
+        <input matInput formControlName='name' required>
+      </mat-form-field>
+   
+      <mat-form-field  class="input"appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName='password' required>
+      </mat-form-field>
+   
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-stroked-button [disabled]='form.invalid' (click)='close()' color="primary">Comfirm</button>
+</mat-dialog-actions>

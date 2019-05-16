@@ -18,6 +18,20 @@
   font-weight: bold;
 }
 
+.mat-form-field-appearance-outline .mat-form-field-outline{
+  color: #24e9d7;
+}
+.mat-form-field-label{
+  color: #24e9d7 ;
+}
+.mat-form-field-label >>> span{
+  color: #ff217c !important;
+}
+.mat-dialog-container{
+  color: #24e9d7;
+  background: transparent;
+}
+
 .mat-form-field-infix{
   min-width: 180px !important;
 }
