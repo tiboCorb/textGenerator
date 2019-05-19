@@ -1,7 +1,10 @@
-export interface Point {
+export interface Post {
     name: string;
     id?: number;
-    text: string;
-    isgood: boolean;
-    textLink ?: string;
+    description: string;
+    status: string;
+    draft: boolean;
+    categoryId: string;
+    postedBy: string;
+    textLink?: string;
 }

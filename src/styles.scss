@@ -18,14 +18,21 @@
   font-weight: bold;
 }
 
+
+.mat-drawer-inner-container{
+  overflow: visible !important;
+}
 .mat-form-field-appearance-outline .mat-form-field-outline{
   color: #24e9d7;
 }
 .mat-form-field-label{
   color: #24e9d7 ;
 }
-.mat-form-field-label >>> span{
-  color: #ff217c !important;
+.mat-checkbox-frame{
+  border-color: white;
+}
+.mat-drawer{
+  color: white;
 }
 .mat-dialog-container{
   color: #24e9d7;
@@ -37,10 +44,10 @@
 }
 
 .mat-select-value {
- 
   width: auto;
 }  
 
 body {
   overflow: hidden;
+  background-color: #483c6c; 
 }

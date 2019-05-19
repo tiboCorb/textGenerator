@@ -25,12 +25,13 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.routerSub = this.router.events.subscribe(ev => {
+    this.routerSub = this.router.events.subscribe(ev => setTimeout(() => {
       if (ev instanceof NavigationStart) {
         this.isOptionPage = !this.isOptionPage;
       }
-    });
-    this.tokenSub = this.connectionS.getToken().subscribe(res => this.handleToken(res));
+    }
+      , 0));
+    this.tokenSub = this.connectionS.getToken().subscribe(res => setTimeout(() => this.handleToken(res), 0));
   }
 
   ngOnDestroy() {
@@ -42,11 +43,9 @@ export class AppComponent implements OnDestroy, OnInit {
     if (token === '') {
       const dialogOption = new MatDialogConfig();
       dialogOption.width = '400px';
-      dialogOption.disableClose =true;
+      dialogOption.disableClose = true;
       const dialogRef = this.dialog.open(LoginComponent, dialogOption);
-      dialogRef.afterClosed().subscribe(result => {
-        this.connectionS.setToken(result);
-      });
+      dialogRef.afterClosed().subscribe(result => setTimeout(() => this.connectionS.setToken(result), 0));
       return;
     }
     this.tokenReady = true;

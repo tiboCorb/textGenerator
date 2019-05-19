@@ -44,6 +44,9 @@
 }
 
 .text {
+  color: #ff217c;
+  text-shadow: 2px 0 0 #00dfd4, -2px 0 0 #00dfd4, 0 2px 0 #00dfd4, 0 -2px 0 #00dfd4, 1px 1px #00dfd4, -1px -1px 0 #00dfd4, 1px -1px 0 #00dfd4, -1px 1px 0 #00dfd4;
+    
   position: absolute;
   bottom: 0;
   left: -2px;

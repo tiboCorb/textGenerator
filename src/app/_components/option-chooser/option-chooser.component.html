@@ -1,17 +1,7 @@
-<div class="cardContainer">
-  <div (click)="setJson(0)" class="card">
-    <mat-icon (mouseover)="hoverTab[0] = true" (mouseout)="hoverTab[0] = false" class="icon bounceIn"
-      [ngClass]='{"iconHover": hoverTab[0]}'>wb_incandescent</mat-icon>
-    <span class='text '>Test interne</span>
-  </div>
-  <div (click)="setJson(1)" class="card">
-    <mat-icon (mouseover)="hoverTab[1] = true" (mouseout)="hoverTab[1] = false" class="icon bounceIn"
-      [ngClass]='{"iconHover": hoverTab[1]}'>code</mat-icon>
-    <span class='text'>Audit de code</span>
-  </div>
-  <div (click)="setJson(2)" class="card">
-    <mat-icon (mouseover)="hoverTab[2] = true" (mouseout)="hoverTab[2] = false" class="icon bounceIn"
-      [ngClass]='{"iconHover": hoverTab[2]}'>wb_sunny</mat-icon>
-    <span class='text'>Test Externe</span>
-  </div>
+<div  class="cardContainer">
+  <div *ngFor="let cat of categoryTab, let i = index" (click)="setCat(cat.id)" class="card">
+    <mat-icon (mouseover)="hoverTab[i] = true" (mouseout)="hoverTab[i] = false" class="icon bounceIn"
+      [ngClass]='{"iconHover": hoverTab[i]}'>wb_incandescent</mat-icon>
+    <span class='text '>{{cat?.name}}</span>
+  </div> 
 </div>

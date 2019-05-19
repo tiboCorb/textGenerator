@@ -1,31 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CategoryService } from '../../_services/category.service';
-import { JsonService } from '../../_services/json.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import * as _ from 'lodash';
-
 
 @Component({
   selector: 'app-option-chooser',
   templateUrl: './option-chooser.component.html',
   styleUrls: ['./option-chooser.component.scss']
 })
-export class OptionChooserComponent implements OnInit {
+export class OptionChooserComponent implements OnInit, OnDestroy {
+
+  private categorySub: Subscription;
 
   public hoverTab: Array<boolean>;
-  public linkTab: Array<string>;
+  public categoryTab: Array<any>;
 
-  constructor(private jsonS: JsonService, private router: Router, private categoryS: CategoryService) {
+  constructor(private router: Router, private categoryS: CategoryService) {
     this.hoverTab = [false, false, false];
-    this.linkTab = ['../../assets/testINT.json', '../../assets/testAudit.json', '../../assets/testEXT.json'];
   }
 
   ngOnInit() {
-    this.categoryS.getCategory().subscribe(res => console.log(res));
+    this.categorySub = this.categoryS.getCategory().subscribe(res => {
+      this.categoryTab = res['hydra:member'];
+    });
   }
-  public setJson(cellNumber: number) {
-    this.jsonS.setJSON(this.linkTab[cellNumber]);
+
+  ngOnDestroy() {
+    this.categorySub.unsubscribe();
+  }
+
+  public setCat(id: number) {
+    this.categoryS.setSelectedCat(id);
     this.router.navigate(['/text_creator']);
   }
 

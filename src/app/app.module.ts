@@ -15,7 +15,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
-import { JsonService } from './_services/json.service';
 
 
 import { MatRippleModule } from '@angular/material/core';
@@ -34,6 +33,8 @@ import { OptionChooserComponent } from './_components/option-chooser/option-choo
 import { TextLinkComponent } from './_components/text-link/text-link.component';
 import { LoginComponent } from './_components/login/login.component';
 import { ConnectionService } from './_services/connection.service';
+import { ComfirmDialogComponent } from './_components/comfirm-dialog/comfirm-dialog.component';
+import { SpaceCheckBoxComponent } from './_components/space-check-box/space-check-box.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,9 @@ import { ConnectionService } from './_services/connection.service';
     PointFormComponent,
     OptionChooserComponent,
     TextLinkComponent,
-    LoginComponent
+    LoginComponent,
+    ComfirmDialogComponent,
+    SpaceCheckBoxComponent
   ],
   imports: [
     MatDialogModule,
@@ -72,7 +75,8 @@ import { ConnectionService } from './_services/connection.service';
   entryComponents: [
     LoginComponent
   ],
-  providers: [JsonService,
+  providers: [
+    ComfirmDialogComponent,
     ConnectionService],
   bootstrap: [AppComponent]
 })

@@ -4,7 +4,7 @@ import { OptionChooserComponent } from './_components/option-chooser/option-choo
 
 const routes: Routes = [
   { path: 'text_creator', component: OptionsComponent },
-  { path: 'json_chooser', component: OptionChooserComponent },
+  { path: 'chooser', component: OptionChooserComponent },
   { path: '**', component: OptionChooserComponent }];
 
 export const appRouting = RouterModule.forRoot(routes);
